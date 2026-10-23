@@ -112,10 +112,20 @@ private fun GeoDoomApp(modifier: Modifier = Modifier) {
                     operacionId = "ecuacion"
                     pantalla = "operacion"
                 }
-                MenuOpcion("🎮 Abrir Freedoom", "Juego independiente: se instala por separado") {
+
+                MenuOpcion(
+                    "🎮 DOOM - Prueba nativa",
+                    "Comprobar conexión entre Kotlin y C++"
+                ) {
                     abrirFreedoom(context)
                 }
-                Text("El juego todavía no está integrado en el APK.", color = Gris, fontSize = 13.sp)
+
+                Text(
+                    "Primera prueba del motor nativo de GeoDoom.",
+                    color = Gris,
+                    fontSize = 13.sp
+                )
+
             }
             "categoria" -> {
                 TextButton(onClick = { volver() }) { Text("← Volver") }
@@ -233,17 +243,9 @@ private fun PantallaOperacion(operacion: Operacion) {
     }
 }
 
+
 private fun abrirFreedoom(context: Context) {
-    // Freedoom es una app aparte. No se redistribuyen DOOM.WAD ni los niveles originales.
-    val lanzar = Intent(Intent.ACTION_MAIN).apply {
-        addCategory(Intent.CATEGORY_LAUNCHER)
-        setPackage("net.nullsum.freedoom")
-    }
-    try {
-        context.startActivity(lanzar)
-    } catch (_: ActivityNotFoundException) {
-        context.startActivity(
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://f-droid.org/packages/net.nullsum.freedoom/"))
-        )
-    }
+    val intent = Intent(context, DoomActivity::class.java)
+    context.startActivity(intent)
 }
+
